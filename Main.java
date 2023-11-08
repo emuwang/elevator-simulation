@@ -40,22 +40,22 @@ public class Main {
         //DEBUGGING PURPOSES TO SEE IF IT IS INITIALIZED CORRECTLY
         System.out.println(structures + ", " + floors + ", " + passengers + ", " + elevators + ", " + elevatorCapacity + ", " + duration);
 
-        //initialize floors
-        Floor[] floorArr = new Floor[floors];
-        for (int i = 0; i < floors; i++) {
-            floorArr[i] = new Floor(i + 1, floors + 1);
+        try {
+            Floor[] floorArr = new Floor[floors];
+            for (int i = 0; i < floors; i++) {
+                floorArr[i] = new Floor(i, floors, passengers, structures);
+            }
+            Elevator[] elevatorArr = new Elevator[elevators];
+            for (int i = 0; i < elevators; i++) {
+                elevatorArr[i] = new Elevator(elevatorCapacity, floors, structures, floorArr);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
         }
 
-        //initialize elevators
-        Elevator[] elevatorArr = new Elevator[elevators];
-        for (int i = 0; i < elevatorCapacity; i++) {
-            try {
-                elevatorArr[i] = new Elevator(elevatorCapacity, structures, floorArr);
-            } catch (Exception e) {
-                System.out.println(e);
-                return;
-            }
-        }
+        //DEBUGGING
+        System.out.println("floorArr and elevatorArr declared successfully");
 
         //elevator simulation
         for (int i = 0; i < duration; i++) {
