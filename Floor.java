@@ -3,21 +3,15 @@ import java.util.*;
 public class Floor{
     private int currFloor;
     private int maxFloors;
-    private String structures;
     private float passengerChance;
 
     private Queue<Passenger> upQueue; //queue of passengers going up from the floor
     private Queue<Passenger> downQueue; //queue of passengers going down from the floor
-    private Boolean headingUp;
-    private Boolean headingDown;
 
     public Floor(int currFloor, int maxFloors, float passengerChance, String structures) throws Exception {
         this.currFloor = currFloor;
         this.maxFloors = maxFloors;
         this.passengerChance = passengerChance;
-        this.structures = structures;
-        this.headingUp = false;
-        this.headingDown = false;
         if (structures.equals("linked")) {
             upQueue = new LinkedList<>();
             downQueue = new LinkedList<>();
@@ -25,8 +19,8 @@ public class Floor{
             upQueue = new ArrayDeque<>();
             downQueue = new ArrayDeque<>();
         } else {
-            System.out.println("structures: " + structures);
-            throw new Exception("Invalid structure in Floor");
+            System.out.println("Expected structures: linked/array. Current structures: " + structures);
+            throw new Exception("Invalid structure in Floor.");
         }
     }
 
@@ -39,10 +33,15 @@ public class Floor{
         Random rand = new Random();
         if(rand.nextFloat() < passengerChance) {
             Passenger p = new Passenger(currFloor, maxFloors);
-            if(p.getDirection() < 0)
+            System.out.print("Passenger generated at floor " + currFloor + " with a dest floor of " + p.getDestFloor());
+            if(p.isPassengerGoingUp()) {
+                System.out.print(" and passenger is going up. Added to upQueue");
                 upQueue.add(p);
-            else if(p.getDirection() > 0)
+            } else if(p.isPassengerGoingDown()) {
+                System.out.print(" and passenger is going down. Added to downQueue");
                 downQueue.add(p);
+            }
+            System.out.println();
         }
     }
 
@@ -54,11 +53,8 @@ public class Floor{
         return downQueue;
     }
 
-    public void setHeadingUp(Boolean headingUp) {
-        this.headingUp = headingUp;
-    }
-
-    public void setHeadingDown(Boolean headingDown) {
-        this.headingDown = headingDown;
+    public void printQueues() {
+        System.out.println("up queue size: " + upQueue.size());
+        System.out.println("down queue size: " + downQueue.size());
     }
 }

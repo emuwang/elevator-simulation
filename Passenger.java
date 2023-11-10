@@ -1,21 +1,26 @@
-import java.util.Random;
+import java.util.*;
 
-public class Passenger {
+public class Passenger implements Comparable<Passenger>{
     private int currFloor;
-    private int maxFloors;
     private int destFloor;
     private int duration;
-    private int direction; //- for down, + for up, 0 if otherwise
+    private boolean passengerGoingUp;
+    private boolean passengerGoingDown;
 
     public Passenger(int currFloor, int maxFloors) {
         this.currFloor = currFloor;
-        this.maxFloors = maxFloors;
         this.duration = 0;
+        this.passengerGoingUp = false;
+        this.passengerGoingDown = false;
         Random rand = new Random();
         do {
             this.destFloor = rand.nextInt(maxFloors) + 1;
         } while (currFloor == this.destFloor);
-        this.direction = destFloor - currFloor;
+        if ((destFloor - currFloor) < 0)
+            this.passengerGoingDown = true;
+        else
+            this.passengerGoingUp = true;
+
     }
 
     public void addDuration() {
@@ -34,7 +39,16 @@ public class Passenger {
         return this.duration;
     }
 
-    public int getDirection() {
-        return this.direction;
+    public boolean isPassengerGoingUp() {
+        return passengerGoingUp;
+    }
+
+    public boolean isPassengerGoingDown() {
+        return passengerGoingDown;
+    }
+
+    @Override
+    public int compareTo(Passenger o) {
+        return 0;
     }
 }

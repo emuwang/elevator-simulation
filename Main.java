@@ -38,14 +38,14 @@ public class Main {
         }
 
         //DEBUGGING PURPOSES TO SEE IF IT IS INITIALIZED CORRECTLY
-        System.out.println(structures + ", " + floors + ", " + passengers + ", " + elevators + ", " + elevatorCapacity + ", " + duration);
+        System.out.println(structures + ", floors: " + floors + ", passenger chance: " + passengers + ", elevators: " + elevators + ", elevator capacity: " + elevatorCapacity + ", duration: " + duration);
 
+        Floor[] floorArr = new Floor[floors];
+        Elevator[] elevatorArr = new Elevator[elevators];
         try {
-            Floor[] floorArr = new Floor[floors];
             for (int i = 0; i < floors; i++) {
                 floorArr[i] = new Floor(i, floors, passengers, structures);
             }
-            Elevator[] elevatorArr = new Elevator[elevators];
             for (int i = 0; i < elevators; i++) {
                 elevatorArr[i] = new Elevator(elevatorCapacity, floors, structures, floorArr);
             }
@@ -58,8 +58,26 @@ public class Main {
         System.out.println("floorArr and elevatorArr declared successfully");
 
         //elevator simulation
-        for (int i = 0; i < duration; i++) {
+        for (int tick = 0; tick < duration; tick++) {
+            System.out.println("TICK " + tick);
+            for(int floorIndex = 0; floorIndex < floors; floorIndex++) {
+                floorArr[floorIndex].updatePerTick();
+            }
+            for (int elevatorIndex = 0; elevatorIndex < elevators; elevatorIndex++) {
+                elevatorArr[elevatorIndex].updatePerTick();
+            }
+            System.out.println("-----");
+        }
 
+        for (int floor = 0; floor < floors; floor++) {
+            System.out.println("--FLOOR " + floor + "--");
+            floorArr[floor].printQueues();
+            System.out.println();
+        }
+        for (int elevator = 0; elevator < elevators; elevator++) {
+            System.out.println("==ELEVATOR " + elevator + "==");
+            elevatorArr[elevator].printTimes();
+            System.out.println();
         }
     }
 }
