@@ -37,7 +37,7 @@ public class Elevator {
     }
 
     /**
-     * Called in main to update elevator related functions every tick.
+     * Called in main to update elevator related variables every tick.
      */
     public void updatePerTick() {
         updateElevator();

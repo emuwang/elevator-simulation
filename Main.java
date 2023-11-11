@@ -10,9 +10,10 @@ print stats for both elevators combined or each elevator
 if args[0] file does not exist, keep running with default.properties?
 values to print for analysis? make a new class for analysis?
 ok to print simulation?
+valid/invalid values from properties file
 */
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         FileReader fr = new FileReader("default.properties");
         Properties p = new Properties();
         p.load(fr);
@@ -47,19 +48,45 @@ public class Main {
                 duration = Integer.parseInt(p.getProperty("duration"));
         }
 
+        //error handling on properties values
+        boolean valid = true;
+        if (structures.compareTo("array") != 0 && structures.compareTo("linked") != 0) {
+            System.out.println("Invalid structure in properties file.");
+            valid = false;
+        }
+        if (floors < 2) {
+            System.out.println("Invalid number of floors in properties file.");
+            valid = false;
+        }
+        if (passengers <= 0) {
+            System.out.println("Invalid passenger chance in properties file.");
+            valid = false;
+        }
+        if (elevators <= 0) {
+            System.out.println("Invalid number of elevators in properties file.");
+            valid = false;
+        }
+        if (elevatorCapacity <= 0) {
+            System.out.println("Invalid elevator capacity in properties file.");
+            valid = false;
+        }
+        if (duration <= 0) {
+            System.out.println("Invalid duration in properties file.");
+            valid = false;
+        }
+        if (!valid) {
+            System.out.println("One or more invalid values in properties file. Exiting program.");
+            return;
+        }
+
         //Initialize floor and elevator arrays to be used in simulation
         Floor[] floorArr = new Floor[floors];
         Elevator[] elevatorArr = new Elevator[elevators];
-        try {
-            for (int i = 0; i < floors; i++) {
-                floorArr[i] = new Floor(i, floors, passengers, structures);
-            }
-            for (int i = 0; i < elevators; i++) {
-                elevatorArr[i] = new Elevator(elevatorCapacity, floors, floorArr);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-            return;
+        for (int i = 0; i < floors; i++) {
+            floorArr[i] = new Floor(i, floors, passengers, structures);
+        }
+        for (int i = 0; i < elevators; i++) {
+            elevatorArr[i] = new Elevator(elevatorCapacity, floors, floorArr);
         }
 
         //elevator simulation
