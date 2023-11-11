@@ -10,8 +10,8 @@ Notes for this implementation:
    - elevators: at least 1 for the simulation to run.
    - elevatorCapacity: at least 1 so that it can transport passengers from floor to floor.
    - duration: at least 1 tick of simulation.
-- It prints out the entire simulation on default. Every tick, it prints the following information:
+- It prints out the entire simulation by default. Every tick, it prints the following information:
   - Tick number.
   - Any passengers generated, along with their current floor, destination floor and direction.
   - For all elevators, their movement from current floor with the number of passengers on board, as well as passengers getting on and off (with their destination and time passed since their creation).
-- The report for simulation prints in the total passengers generated. For each elevator in the simulation, it prints the number of passengers served, average time, shortest time and longest wait time for each passenger.
+- The report for simulation prints the total passengers generated. For each elevator in the simulation, it prints the number of passengers served, average time, shortest time and longest wait time for each passenger.
