@@ -14,13 +14,18 @@ public class Passenger implements Comparable<Passenger>{
         this.passengerGoingDown = false;
         Random rand = new Random();
         do {
-            this.destFloor = rand.nextInt(maxFloors) + 1;
+            this.destFloor = rand.nextInt(maxFloors);
         } while (currFloor == this.destFloor);
         if ((destFloor - currFloor) < 0)
             this.passengerGoingDown = true;
         else
             this.passengerGoingUp = true;
 
+    }
+
+    @Override
+    public int compareTo(Passenger pass) { //compare to method to sort passengers by their dest floors
+        return (Integer.compare(this.destFloor, pass.destFloor));
     }
 
     public void addDuration() {
@@ -47,8 +52,4 @@ public class Passenger implements Comparable<Passenger>{
         return passengerGoingDown;
     }
 
-    @Override
-    public int compareTo(Passenger o) {
-        return 0;
-    }
 }
