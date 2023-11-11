@@ -10,6 +10,7 @@ Notes for this implementation:
    - elevators: at least 1 for the simulation to run.
    - elevatorCapacity: at least 1 so that it can transport passengers from floor to floor.
    - duration: at least 1 tick of simulation.
+- If any required values are missing in the .properties file, they are replaced with values in the default.properties file.
 - It prints out the entire simulation by default. Every tick, it prints the following information:
   - Tick number.
   - Any passengers generated, along with their current floor, destination floor and direction.
