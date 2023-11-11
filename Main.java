@@ -11,6 +11,7 @@ if args[0] file does not exist, keep running with default.properties?
 values to print for analysis? make a new class for analysis?
 ok to print simulation?
 valid/invalid values from properties file
+lowercase matters for structures?
 */
 public class Main {
     public static void main(String[] args) throws Exception {

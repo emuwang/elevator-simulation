@@ -162,7 +162,7 @@ public class Elevator {
     private void unloadPassengers() {
         while (pQueue.peek() != null && pQueue.peek().getDestFloor() == currFloor) { //loop until no more passengers that need to get off at curr floor
             Passenger p = pQueue.poll();
-            System.out.println("Passenger(Dest: " + p.getDestFloor() + ") got off at " + currFloor + " with a duration of " + p.getDuration());
+            System.out.println("Passenger(Destination: " + p.getDestFloor() + ") got off at " + currFloor + " with a duration of " + p.getDuration());
             updateTotalDuration(p);
             p = null; //dereference passenger object
         }
@@ -174,13 +174,13 @@ public class Elevator {
     private void loadPassengers() {
         if (elevatorGoingUp) {
             while(floorArr[currFloor].getUpQueue().size() > 0 && pQueue.size() < maxPassengers) {
-                System.out.println("Passenger(Dest: " + floorArr[currFloor].getUpQueue().peek().getDestFloor() + ") got on at floor " + currFloor);
+                System.out.println("Passenger(Destination: " + floorArr[currFloor].getUpQueue().peek().getDestFloor() + ") got on at floor " + currFloor);
                 pQueue.add(floorArr[currFloor].getUpQueue().poll());
             }
         }
         if (elevatorGoingDown) {
             while(floorArr[currFloor].getDownQueue().size() > 0 && pQueue.size() < maxPassengers) {
-                System.out.println("Passenger(Dest: " + floorArr[currFloor].getDownQueue().peek().getDestFloor() + ") got on at floor " + currFloor);
+                System.out.println("Passenger(Destination: " + floorArr[currFloor].getDownQueue().peek().getDestFloor() + ") got on at floor " + currFloor);
                 pQueue.add(floorArr[currFloor].getDownQueue().poll());
             }
         }
