@@ -5,14 +5,6 @@
 import java.io.*;
 import java.util.*;
 
-/*QUESTIONS TO ASK:
-print stats for both elevators combined or each elevator
-if args[0] file does not exist, keep running with default.properties?
-values to print for analysis? make a new class for analysis?
-ok to print simulation?
-valid/invalid values from properties file
-lowercase matters for structures?
-*/
 public class Main {
     public static void main(String[] args) throws Exception {
         FileReader fr = new FileReader("default.properties");
@@ -59,7 +51,7 @@ public class Main {
             System.out.println("Invalid number of floors in properties file.");
             valid = false;
         }
-        if (passengers <= 0) {
+        if (passengers <= 0.0 || passengers > 1.0) {
             System.out.println("Invalid passenger chance in properties file.");
             valid = false;
         }
@@ -111,12 +103,20 @@ public class Main {
             total = total + floorArr[floor].getTotalPassengers();
             floorArr[floor] = null; //dereference
         }
+        System.out.println("Total passengers: " + total);
+        float minTime = 9999;
+        float maxTime = -1;
+        float totalTime = 0;
+        int passengerHandled = 0;
         for (int elevator = 0; elevator < elevators; elevator++) {
-            System.out.println("---ELEVATOR " + (elevator+1) + "---");
-            System.out.println("Total passengers: " + total);
-            elevatorArr[elevator].printTimes();
-            elevatorArr[elevator] = null; //dereference
-            System.out.println();
+            minTime = Math.min(minTime, elevatorArr[elevator].getMinDuration());
+            maxTime = Math.max(maxTime, elevatorArr[elevator].getMaxDuration());
+            totalTime = totalTime + elevatorArr[elevator].getTotalDuration();
+            passengerHandled = passengerHandled + elevatorArr[elevator].getPassengersHandled();
         }
+        System.out.println("Passengers handled: " + passengerHandled);
+        System.out.printf("Average time: %.2f\n", (totalTime/passengerHandled));
+        System.out.println("Shortest time: " + minTime);
+        System.out.println("Longest time: " + maxTime);
     }
 }

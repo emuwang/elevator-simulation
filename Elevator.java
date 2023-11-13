@@ -40,6 +40,8 @@ public class Elevator {
      * Called in main to update elevator related variables every tick.
      */
     public void updatePerTick() {
+        for (Passenger p: pQueue)
+            p.addDuration();
         updateElevator();
         moveElevator();
         updateDirection();
@@ -200,12 +202,30 @@ public class Elevator {
     }
 
     /**
-     * Used in stat analysis. Print stats of the simulation for this elevator.
+     * @return the min time taken for a passenger.
      */
-    public void printTimes() {
-        System.out.println("Passengers handled by this Elevator: " + passengersHandled);
-        System.out.printf("Average time: %.2f\n", (totalDuration/passengersHandled));
-        System.out.println("Shortest time: " + minDuration);
-        System.out.println("Longest time: " + maxDuration);
+    public float getMinDuration() {
+        return minDuration;
+    }
+
+    /**
+     * @return the max time taken for a passenger.
+     */
+    public float getMaxDuration() {
+        return maxDuration;
+    }
+
+    /**
+     * @return the total duration of all passengers combined.
+     */
+    public float getTotalDuration() {
+        return totalDuration;
+    }
+
+    /**
+     * @return the number of passengers that got off their floors.
+     */
+    public int getPassengersHandled() {
+        return passengersHandled;
     }
 }

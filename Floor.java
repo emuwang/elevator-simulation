@@ -25,10 +25,10 @@ public class Floor{
         this.maxFloors = maxFloors;
         this.passengerChance = passengerChance;
         //uses polymorphism to change to an LLQueue or Deque(array based) depending on properties file
-        if (structures.equals("linked")) {
+        if (structures.equalsIgnoreCase("linked")) {
             upQueue = new LinkedList<>();
             downQueue = new LinkedList<>();
-        } else if (structures.equals("array")) {
+        } else if (structures.equalsIgnoreCase("array")) {
             upQueue = new ArrayDeque<>();
             downQueue = new ArrayDeque<>();
         }
