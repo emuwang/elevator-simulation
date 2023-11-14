@@ -15,4 +15,4 @@ Notes for this implementation:
   - Tick number.
   - Any passengers generated, along with their current floor, destination floor and direction.
   - For all elevators, their movement from current floor with the number of passengers on board, as well as passengers getting on and off (with their destination and time passed since their creation).
-- The report for simulation prints the total passengers generate, the number of passengers served, average time, shortest time and longest wait time.
+- The report for simulation prints the total passengers generated, the number of passengers served, average time, shortest time and longest wait time.
